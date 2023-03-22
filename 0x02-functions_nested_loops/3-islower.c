@@ -1,8 +1,7 @@
 #include "main.h"
 
 /**
- * _is lower - function to check if
- *	      character is lowercase
+ * Description: _is lower - function to check if character is lowercase
  *
  * @c: checks input of function
  *
