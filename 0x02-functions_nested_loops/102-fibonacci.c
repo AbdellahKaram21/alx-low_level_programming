@@ -25,7 +25,7 @@ int main(void)
 		if (count == 0)
 			printf("\n");
 		else
-			printd(", ");
+			printf(", ");
 	}
 
 	return (0);
