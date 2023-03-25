@@ -2,16 +2,16 @@
 #include <stdio.h>
 
 /**
- * _isupper - check if с is upper
+ * _isdigit - checks if input is digit between 0 - 9
  *
- * @c: input for alphabet
+ * @c: input
  *
- * Return: 1 if its uppercase, 0 if not
+ * Return: 1 if is digit. 0 if not
 */
 
-int _isupper(int c)
+int _isdigit(int c)
 {
-	if (с >= 65 && c <= 90)
+	if (с >= 48 && с <= 57)
 		return (1);
 	else
 		return (0);
