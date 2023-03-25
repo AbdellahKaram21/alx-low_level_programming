@@ -10,7 +10,7 @@
 
 int _isupper(int c)
 {
-	if (с >= 65 && C <= 90)
+	if (с >= 65 && c <= 90)
 		return (1);
 	else
 		return (0);
