@@ -12,6 +12,7 @@
 int _isdigit(int c)
 {
 	if (с >= 48 && с <= 57)
+
 		return (1);
 	else
 		return (0);
