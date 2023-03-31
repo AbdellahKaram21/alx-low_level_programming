@@ -31,7 +31,9 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
 			n = 0;
 		r[j] = (n1[i] - '0') + (n2[i] - '0') + n;
 		r[j] = r[j] % 10 + '0';
-/*		printf("i: %d, n1: %d, n2: %d, j: %d, r: %d\n", i, n1[i] - '0', n2[i] - '0', j, r[j]- '0'); debug*/
+/** printf("i: %d, n1: %d, n2: %d, j: %d, r: %d\n",
+* i, n1[i] - '0', n2[i] - '0', j, r[j]- '0'); debug
+*/
 		i++;
 		j++;
 		if (n1[i] == '\0' || n2[i] == '\0')
