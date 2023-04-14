@@ -1,89 +1,98 @@
 #include "main.h"
-
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 /**
- * print_str -> prints string
- * @str: string
- */
-
-void print_str(char *str)
+* _isNum - check if is a number
+*@num: string to check
+*Return: 1 is numm, 0 not num
+*/
+int _isNum(char *num)
 {
-	while (*str != '\0')
+	int i;
+
+	for (i = 0; num[i] != '\0'; i++)
 	{
-		_putchar(*str);
-		str++;
+		if (num[i] < '0' || num[i] > '9')
+			return (0);
 	}
+	return (1);
 }
 
 /**
- * str_to_int -> converts string to int
- * @str: string
- * Return: int
- */
-
-int str_to_int(char *str)
+* *_memset - copies a character to the firstn characters of the string pointed
+*@s: original string
+*@b: value to remplace
+*@n: number of bytes
+*Return: s (string modify)
+*/
+char *_memset(char *s, char b, unsigned int n)
 {
-	unsigned long int sign = 1, num = 0;
+	unsigned int i;
 
-	if (*str == '-')
-	{
-		sign *= -1;
-		str++;
-	}
-	while (*str != '\0')
-	{
-		num = (num * 10) + (*str - '0');
-		str++;
-	}
-	return (num * sign);
+	for (i = 0; i < n; i++)
+		s[i] = b;
+	return (s);
 }
 
 /**
- * print_int -> prints integer
- * @num: integer
- */
-
-void print_int(unsigned long int num)
+* _strlen - returns the lenght of a string
+*@s: poiter of character
+*Return: the length of a string
+*/
+int _strlen(char *s)
 {
-	if (num / 10 != 0)
-		print_int(num / 10);
-	if (num < 0 && num / 10 == 0)
-		_putchar('-');
-	_putchar(((num < 0 ? num * -1 : num) % 10) + '0');
+	int len;
+
+	len = 0;
+	while (*(s + len) != '\0')
+		len++;
+	return (len);
 }
 
 /**
- * main -> prints product of two integers
- * @argc: number of arguments
- * @argv: arguments
- * Return: product
- */
-
+* main - multiple 2 positive numbers
+*@argc: argument counter
+*@argv: number to multiply
+*Return: 0 (success)
+*/
 int main(int argc, char *argv[])
 {
-	unsigned long int i, j, num1, num2;
+	int length, c, prod, i, j, l1, l2;
+	int *res;
 
-	if (argc != 3)
+	if ((argc != 3 || !(_isNum(argv[1]))) || !(_isNum(argv[2])))
+		puts("Error"), exit(98);
+	l1 = _strlen(argv[1]), l2 = _strlen(argv[2]);
+	length = l1 + l2;
+	res = calloc(length, sizeof(int *));
+	if (res == NULL)
+		puts("Error"), exit(98);
+	for (i = l2 - 1; i > -1; i--)
 	{
-		print_str("Error");
-		_putchar('\n');
-		return (98);
-	}
-	for (i = 1; i < argc; i++)
-	{
-		for (j = 0; argv[i][j] != '\0'; j++)
+		c = 0;
+		for (j = l1; j > -1; j--)
 		{
-			if (!(argv[i][j] - '0' >= 0 && argv[i][j] - '0' <= 9))
+			prod = (argv[2][i] - '0') * (argv[1][j] - '0');
+			c = (prod / 10);
+			res[(i + j) + 1] += (prod % 10);
+			if (res[(i + j) + 1] > 9)
 			{
-				print_str("Error");
-				print_str("here");
-				_putchar('\n');
-				return (98);
+				res[i + j] += res[(i + j) + 1] / 10;
+				res[(i + j) + 1] = res[(i + j) + 1] % 10;
 			}
+			res[(i + j) + 1] += c;
 		}
 	}
-	num1 = str_to_int(argv[1]);
-	num2 = str_to_int(argv[2]);
-	print_int(num1 * num2);
-	_putchar('\n');
+
+	if (res[0] == 0)
+		i = 1;
+	else
+		i = 0;
+	for (; i < length; i++)
+		printf("%d", res[i]);
+
+	printf("\n");
+	free(res);
 	return (0);
 }
