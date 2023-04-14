@@ -1,68 +1,89 @@
-#include <stdlib.h>
-#include <stdio.h>
-/**
-  * _isdigit - tells if the string consists of digits
-  * @argv: pointer to current item in argument
-  * Return: return 0 if all digits, 1 if not all digits.
-  */
-int _isdigit(char *argv)
-{
-	int i;
+#include "main.h"
 
-	i = 0;
-	while (argv[i])
-	{
-		if (argv[i] >= '0' && argv[i] <= '9')
-			i++;
-		else
-			return (1);
-	}
-	return (0);
-}
 /**
-  * _atoi - converts a string of ascii digits to the values they represent
-  * @s: pointer to the source string
-  * Return: value of digits
-  */
-int _atoi(char *s)
-{
-	int i, result;
+ * print_str -> prints string
+ * @str: string
+ */
 
-	i = result = 0;
-	while (s[i])
+void print_str(char *str)
+{
+	while (*str != '\0')
 	{
-		if (s[i] >= '0' && s[i] <= '9')
-		{
-			result *= 10;
-			result += (s[i] - '0');
-		}
-		i++;
+		_putchar(*str);
+		str++;
 	}
-	return (result);
 }
+
 /**
-  * main - main function call
-  * @argc: argument count
-  * @argv: 2D array of arguments
-  * Return: return 0 on success, 98 on failure
-  */
+ * str_to_int -> converts string to int
+ * @str: string
+ * Return: int
+ */
+
+int str_to_int(char *str)
+{
+	unsigned long int sign = 1, num = 0;
+
+	if (*str == '-')
+	{
+		sign *= -1;
+		str++;
+	}
+	while (*str != '\0')
+	{
+		num = (num * 10) + (*str - '0');
+		str++;
+	}
+	return (num * sign);
+}
+
+/**
+ * print_int -> prints integer
+ * @num: integer
+ */
+
+void print_int(unsigned long int num)
+{
+	if (num / 10 != 0)
+		print_int(num / 10);
+	if (num < 0 && num / 10 == 0)
+		_putchar('-');
+	_putchar(((num < 0 ? num * -1 : num) % 10) + '0');
+}
+
+/**
+ * main -> prints product of two integers
+ * @argc: number of arguments
+ * @argv: arguments
+ * Return: product
+ */
+
 int main(int argc, char *argv[])
 {
-	int i;
+	unsigned long int i, j, num1, num2;
 
-	malloc();
 	if (argc != 3)
 	{
-		printf("Error\n");
-		exit(98);
+		print_str("Error");
+		_putchar('\n');
+		return (98);
 	}
 	for (i = 1; i < argc; i++)
 	{
-		if (_isdigit(argv[i]))
+		for (j = 0; argv[i][j] != '\0'; j++)
 		{
-			printf("Error\n");
-			exit(98);
+			if (!(argv[i][j] - '0' >= 0 && argv[i][j] - '0' <= 9))
+			{
+				print_str("Error");
+				print_str("here");
+				_putchar('\n');
+				return (98);
+			}
 		}
 	}
+	num1 = str_to_int(argv[1]);
+	num2 = str_to_int(argv[2]);
+	print_int(num1 * num2);
+	_putchar('\n');
 	return (0);
 }
